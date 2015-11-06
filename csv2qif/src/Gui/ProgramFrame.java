@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import data.Data;
 import decode.IngToTransactions;
 import decode.RaboToTransactions;
+import export.ToQif;
 
 import program.Program;
 
@@ -45,6 +46,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	private static final long serialVersionUID = -7454457885878376658L;
 	static private final String newline = "\n";
 	private ProgramFrame panel;
+	JFileChooser fc = new JFileChooser();
 	JTextArea log;
 	JPanel buttonPanel;
 	ButtonGroup selectBankGroup = new ButtonGroup();
@@ -55,7 +57,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	JRadioButton qifButton = new JRadioButton("Qif output");
 	
 	Program p;
-	JFileChooser fc;	
+
 	JButton load = new JButton("load");
 	JButton save = new JButton("save");
 	JTextField nameField = new JTextField(10);
@@ -75,7 +77,9 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	    JScrollPane logScrollPane = new JScrollPane(log);
 		//this.p).addObserver(this);
 		buttonPanel = new JPanel();
-		 load.addActionListener(this);
+		
+		load.addActionListener(this);
+		save.addActionListener(this);
 		content = getContentPane();
 		
 		ingButton.setSelected(true);
@@ -160,7 +164,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 
         //Handle open button action.
         if (e.getSource() == load) {
-        	JFileChooser fc = new JFileChooser();
+        	
             int returnVal = fc.showOpenDialog(this);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -178,11 +182,12 @@ public class ProgramFrame extends JFrame implements ActionListener{
 
         //Handle save button action.
         } else if (e.getSource() == save) {
-        	
+        	//fc.setCurrentDirectory(fc.getCurrentDirectory());
             int returnVal = fc.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                //This is where a real application would save the file.
+                
+                new ToQif(data, fc.getSelectedFile());
                
                 
                 log.append("Saving: " + file.getName() + "." + newline);
