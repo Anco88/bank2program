@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import data.Data;
 import decode.IngToTransactions;
 import decode.RaboToTransactions;
+import export.ToCSV;
 import export.ToQif;
 
 import program.Program;
@@ -52,7 +53,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	ButtonGroup selectBankGroup = new ButtonGroup();
 	JRadioButton raboButton = new JRadioButton("Rabobank");
 	JRadioButton ingButton = new JRadioButton("ING");
-
+	ButtonGroup selectOutput;
 	JRadioButton csvButton = new JRadioButton("CSV output");
 	JRadioButton qifButton = new JRadioButton("Qif output");
 	
@@ -60,8 +61,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 
 	JButton load = new JButton("load");
 	JButton save = new JButton("save");
-	JTextField nameField = new JTextField(10);
-	JButton changeName = new JButton("change name");
+
 	Container content;
 	boolean newEdge = false;
 	private String bank;
@@ -92,9 +92,11 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		selectBankGroup.add(raboButton);
 		selectBankGroup.add(ingButton);
 		
-		ButtonGroup selectOutput = new ButtonGroup();
+		selectOutput = new ButtonGroup();
 		selectOutput.add(csvButton);
 		selectOutput.add(qifButton);
+		csvButton.setActionCommand("CSV");
+		qifButton.setActionCommand("QIF");
 		
 		qifButton.setSelected(true);
 		csvButton.addActionListener(this);
@@ -159,6 +161,10 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		return selectBankGroup.getSelection().getActionCommand();
 	}
 	
+	public String getSelectedOutput(){
+		return selectOutput.getSelection().getActionCommand();
+	}
+	
 	@Override
     public void actionPerformed(ActionEvent e) {
 
@@ -187,7 +193,11 @@ public class ProgramFrame extends JFrame implements ActionListener{
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 
-                new ToQif(data, fc.getSelectedFile());
+               switch(getSelectedOutput()){
+               case "QIF":  new ToQif(data, fc.getSelectedFile());
+               case "CSV": new ToCSV(data, fc.getSelectedFile());
+               }
+               
                
                 
                 log.append("Saving: " + file.getName() + "." + newline);
