@@ -41,6 +41,8 @@ public class ToCSV extends Export {
 		try {
 			w = new BufferedWriter(new FileWriter(filename));
 			//w.write("!Type:Bank\n");
+			w.write("\" date \",\" amount \",\" name \",\" memo \",\" code \",\" category\",\" subcat \"");
+			
 			for (Transaction t : super.data.getTransactions()) {
 				w.write(toCSV(t));
 				w.newLine();

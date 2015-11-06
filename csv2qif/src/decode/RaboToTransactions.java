@@ -22,7 +22,7 @@ public class RaboToTransactions extends CSVToTransactions{
 	@Override
 	public Transaction readFromLine(String str, int n) {
 		Transaction t = new Transaction();
-		String description = null;
+		String description = "";
 		String comment = "";
 		str = str.substring(1, str.length() - 1);
 		String[] strings = str.split("(\",\")");
