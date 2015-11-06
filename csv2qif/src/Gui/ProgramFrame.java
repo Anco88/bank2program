@@ -23,6 +23,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import data.Data;
+import decode.IngToTransactions;
+import decode.RaboToTransactions;
 
 import program.Program;
 
@@ -45,6 +47,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	private ProgramFrame panel;
 	JTextArea log;
 	JPanel buttonPanel;
+	ButtonGroup selectBankGroup = new ButtonGroup();
 	JRadioButton raboButton = new JRadioButton("Rabobank");
 	JRadioButton ingButton = new JRadioButton("ING");
 
@@ -81,7 +84,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		ingButton.setActionCommand("ING");
 		raboButton.setActionCommand("RABO");
 		
-		ButtonGroup selectBankGroup = new ButtonGroup();
+		
 		selectBankGroup.add(raboButton);
 		selectBankGroup.add(ingButton);
 		
@@ -148,6 +151,10 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		
 	}
 
+	public String getSelectedBank(){
+		return selectBankGroup.getSelection().getActionCommand();
+	}
+	
 	@Override
     public void actionPerformed(ActionEvent e) {
 
@@ -159,8 +166,11 @@ public class ProgramFrame extends JFrame implements ActionListener{
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would open the file.
+                switch(getSelectedBank()){
+	                case "RABO":new RaboToTransactions(data, fc.getSelectedFile());
+	                case "ING":new IngToTransactions(data, fc.getSelectedFile());
+                }
                 log.append("Opening: " + file.getName() + "." + newline);
-                log.append("Saving: " + file.getAbsolutePath() + "." + newline);
             } else {
                 log.append("Open command cancelled by user." + newline);
             }
@@ -173,6 +183,8 @@ public class ProgramFrame extends JFrame implements ActionListener{
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would save the file.
+               
+                
                 log.append("Saving: " + file.getName() + "." + newline);
                 log.append("Saving: " + file.getAbsolutePath() + "." + newline);
             } else {
@@ -202,6 +214,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
         return null;
       }
 */
+	
 	
 
 }

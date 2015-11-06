@@ -44,7 +44,7 @@ public class Qif {
 				System.out.println(numberOfTransactions);
 				Transaction t = new Transaction();
 				transactions.add(t);
-				t.readFromLine(inLine);
+				//t.readFromLine(inLine);
 			}
 		} catch (IOException e) {
 			System.err.println("error");

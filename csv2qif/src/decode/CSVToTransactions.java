@@ -1,6 +1,7 @@
 package decode;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -10,6 +11,7 @@ import data.Transaction;
 
 public abstract class CSVToTransactions {
 	private Data data;
+	private File file;
 	
 	/**
 	 * @return the data
@@ -26,13 +28,16 @@ public abstract class CSVToTransactions {
 		this.data = data;
 	}
 	
-	abstract void readFromLine(String inLine, Transaction t, int number);
+	abstract Transaction readFromLine(String inLine, int number);
 
-	CSVToTransactions(Data data){
+	CSVToTransactions(Data data, File file){
 		setData(data);
+		setFile(file);
+		loadCSV(file.getAbsolutePath());
 	}
 
 	public void loadCSV(String filename){
+		System.out.println("load file: "+filename);
 		Reader inStream;
 		BufferedReader input;
 		String inLine;
@@ -43,10 +48,14 @@ public abstract class CSVToTransactions {
 			input = new BufferedReader(inStream);
 			while((inLine = input.readLine()) != null && !inLine.isEmpty()){
 				number++;
-				Transaction t = new Transaction();
-				getData().getTransactions().add(t);
-				readFromLine(inLine, t, number);
+				Transaction t = readFromLine(inLine, number);
+				if(t != null){
+					getData().getTransactions().add(t);
+				}
 			}
+	//		System.out.println(getData().getTransactions().a)
+			getData().printTransactions();
+			System.out.println(number);
 		}
 		catch(IOException e){
 			System.err.println("error");
@@ -57,4 +66,16 @@ public abstract class CSVToTransactions {
 	public String getCategory(){
 		return null;
 	}
+
+
+	public File getFile() {
+		return file;
+	}
+
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+	
+	
 }

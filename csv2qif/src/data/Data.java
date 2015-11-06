@@ -21,6 +21,10 @@ public class Data {
 	public ArrayList<Transaction> getTransactions(){
 		return transactions.getTransactions();
 	}
+	
+	public void printTransactions(){
+		transactions.println();
+	}
 	/**
 	 * @param transactions the transactions to set
 	 */

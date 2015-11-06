@@ -336,6 +336,11 @@ public class Transaction {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}	
+	@Override
+	public String toString(){
+		String str = "";
+		str += concat(",", date, DC + amount, name, comment, category,ownAccount, account, code, description, currency);
+		return str;
 	}
-
 }

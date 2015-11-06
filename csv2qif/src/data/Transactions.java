@@ -35,5 +35,11 @@ public class Transactions {
 	public Transactions() {
 		transactions = new ArrayList<Transaction>();
 	}
+	
+	public void println(){
+		for(Transaction t : getTransactions()){
+			System.out.println(t.toString());
+		}
+	}
 
 }

@@ -3,6 +3,8 @@
  */
 package decode;
 
+import java.io.File;
+
 import data.Data;
 import data.Transaction;
 
@@ -12,13 +14,14 @@ import data.Transaction;
  */
 public class RaboToTransactions extends CSVToTransactions{
 
-	RaboToTransactions(Data data) {
-		super(data);
+	public RaboToTransactions(Data data, File file) {
+		super(data, file);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void readFromLine(String str, Transaction t, int n) {
+	public Transaction readFromLine(String str, int n) {
+		Transaction t = new Transaction();
 		String description = null;
 		String comment = "";
 		str = str.substring(1, str.length() - 1);
@@ -49,6 +52,7 @@ public class RaboToTransactions extends CSVToTransactions{
 		comment = comment.trim();
 		t.setComment(comment);
 		t.setCategory(getCategory());
+		return t;
 	}
 
 }

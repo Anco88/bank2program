@@ -1,19 +1,21 @@
 package decode;
 
+import java.io.File;
+
 import data.Data;
 import data.Transaction;
 
 public class IngToTransactions extends CSVToTransactions {
 
-	IngToTransactions(Data data) {
-		super(data);
-		// TODO Auto-generated constructor stub
+	public IngToTransactions(Data data, File file) {
+		super(data, file);
 	}
 
+
 	@Override
-	void readFromLine(String inLine, Transaction t, int n) {
+	Transaction readFromLine(String inLine, int number) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

@@ -24,11 +24,11 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Qif file = new Qif();
+		//Qif file = new Qif();
 		ProgramFrame f = new ProgramFrame(new Data());
-		file.loadSVN("input.txt");
+		//file.loadSVN("input.txt");
 		// file.save("output.qif");
-		file.saveCSV("output.csv");
+		
 
 	}
 
