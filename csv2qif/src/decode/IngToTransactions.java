@@ -11,7 +11,7 @@ public class IngToTransactions extends CSVToTransactions {
 	}
 
 	@Override
-	void readFromLine(String inLine, Transaction t) {
+	void readFromLine(String inLine, Transaction t, int n) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -17,6 +17,7 @@ public abstract class CSVToTransactions {
 	public Data getData() {
 		return data;
 	}
+	
 
 	/**
 	 * @param data the data to set
@@ -25,34 +26,31 @@ public abstract class CSVToTransactions {
 		this.data = data;
 	}
 	
-	abstract void readFromLine(String inLine, Transaction t);
+	abstract void readFromLine(String inLine, Transaction t, int number);
 
 	CSVToTransactions(Data data){
 		setData(data);
 	}
 
-	public void loadSVN(String filename){
+	public void loadCSV(String filename){
 		Reader inStream;
 		BufferedReader input;
 		String inLine;
-		
-		int numberOfTransactions = 0;
-		
+		int number=0;
 		
 		try{
 			inStream = new FileReader(filename);
 			input = new BufferedReader(inStream);
 			while((inLine = input.readLine()) != null && !inLine.isEmpty()){
-				numberOfTransactions++;
-				System.out.println(numberOfTransactions);
+				number++;
 				Transaction t = new Transaction();
 				getData().getTransactions().add(t);
-				readFromLine(inLine, t);
+				readFromLine(inLine, t, number);
 			}
 		}
 		catch(IOException e){
 			System.err.println("error");
-			  e.printStackTrace();
+			e.printStackTrace();
 		}		
 	}
 	

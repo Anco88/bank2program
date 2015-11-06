@@ -90,33 +90,7 @@ public class Transaction {
 
 	}
 
-	public void readFromLine(String str) {
-		str = str.substring(1, str.length() - 1);
-		String[] strings = str.split("(\",\")");
-		ownAccount = strings[0];
-		currency = strings[1];
-
-		if (strings[3].contains("D")) {
-			DC = "-";
-		}
-
-		amount = strings[4];
-
-		account = strings[5];
-		name = strings[6];
-		date = strings[7];
-		code = strings[8];
-
-		if (strings.length > 10) {
-			description = strings[10];
-		}
-		for (int i = 11; i < strings.length; i++) {
-			comment += " " + strings[i];
-		}
-		comment = comment.trim();
-		category = setCat();
-
-	}
+	
 
 	private String setCat() {
 		// TODO Auto-generated method stub
@@ -208,6 +182,160 @@ public class Transaction {
 			str = str + separator + args[i];
 		}
 		return str;
+	}
+
+	/**
+	 * @return the dC
+	 */
+	public String getDC() {
+		return DC;
+	}
+
+	/**
+	 * @param dC the dC to set
+	 */
+	public void setDC(String dC) {
+		DC = dC;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public String getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	/**
+	 * @return the currency
+	 */
+	public String getCurrency() {
+		return currency;
+	}
+
+	/**
+	 * @param currency the currency to set
+	 */
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	/**
+	 * @return the category
+	 */
+	public String getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	/**
+	 * @return the ownAccount
+	 */
+	public String getOwnAccount() {
+		return ownAccount;
+	}
+
+	/**
+	 * @param ownAccount the ownAccount to set
+	 */
+	public void setOwnAccount(String ownAccount) {
+		this.ownAccount = ownAccount;
+	}
+
+	/**
+	 * @return the account
+	 */
+	public String getAccount() {
+		return account;
+	}
+
+	/**
+	 * @param account the account to set
+	 */
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
