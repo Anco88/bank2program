@@ -7,9 +7,11 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Enumeration;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -84,8 +86,8 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		selectBankGroup.add(ingButton);
 		
 		ButtonGroup selectOutput = new ButtonGroup();
-		selectBankGroup.add(csvButton);
-		selectBankGroup.add(qifButton);
+		selectOutput.add(csvButton);
+		selectOutput.add(qifButton);
 		
 		qifButton.setSelected(true);
 		csvButton.addActionListener(this);
@@ -110,6 +112,8 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		this.setVisible(true);
 		
 		this.data.setBank(selectBankGroup.getSelection().getActionCommand());
+	//	System.out.println("hooi " + selectBankGroup.getSelection().getActionCommand());
+	//	System.out.println("hooi " + getSelectedButton(selectBankGroup).getActionCommand());
 		
 		this.init();
 
@@ -188,9 +192,16 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	    }
     }
 
-
-
-
+/* orinal function works, keep this for backup
+    public  JRadioButton getSelectedButton(ButtonGroup group) {
+        Enumeration<AbstractButton> e = group.getElements();
+        while (e.hasMoreElements()) {
+           AbstractButton b =  e.nextElement();
+          if (b.isSelected()) return (JRadioButton) b;
+        }
+        return null;
+      }
+*/
 	
 
 }
