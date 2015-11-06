@@ -1,5 +1,6 @@
 package Gui;
 
+import data.Data;
 import program.Program;
 
 public class ProgramPanel extends ProgramFrame {
@@ -9,8 +10,8 @@ public class ProgramPanel extends ProgramFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	ProgramPanel(Program p) {
-		super(p);
+	ProgramPanel(Data d) {
+		super(d);
 		// TODO Auto-generated constructor stub
 	}
 

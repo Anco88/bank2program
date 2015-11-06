@@ -14,6 +14,7 @@ import decode.Rules;
 public class Data {
 	private Transactions transactions;
 	private Rules rules;
+	private String bank;
 	/**
 	 * @return the transactions
 	 */
@@ -33,6 +34,10 @@ public class Data {
 	public Data() {
 		transactions = new Transactions();
 		rules = new Rules();
+	}
+	
+	public void setBank(String bank) {
+		this.bank = bank;		
 	}
 
 }

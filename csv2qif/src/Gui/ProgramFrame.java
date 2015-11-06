@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import data.Data;
+
 import program.Program;
 
 /**
@@ -31,7 +33,7 @@ import program.Program;
  * @param <panel>
  *
  */
-public class ProgramFrame<panel> extends JFrame implements ActionListener{
+public class ProgramFrame extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -39,10 +41,8 @@ public class ProgramFrame<panel> extends JFrame implements ActionListener{
 	private static final long serialVersionUID = -7454457885878376658L;
 	static private final String newline = "\n";
 	private ProgramFrame panel;
-	 JTextArea log;
+	JTextArea log;
 	JPanel buttonPanel;
-	JButton deleteNode;
-	JButton newNode;
 	JRadioButton raboButton = new JRadioButton("Rabobank");
 	JRadioButton ingButton = new JRadioButton("ING");
 
@@ -50,10 +50,7 @@ public class ProgramFrame<panel> extends JFrame implements ActionListener{
 	JRadioButton qifButton = new JRadioButton("Qif output");
 	
 	Program p;
-	JFileChooser fc;
-	JButton addEdge = new JButton("add edge");
-	JButton undo = new JButton("undo");
-	JButton redo = new JButton("redo");
+	JFileChooser fc;	
 	JButton load = new JButton("load");
 	JButton save = new JButton("save");
 	JTextField nameField = new JTextField(10);
@@ -61,15 +58,16 @@ public class ProgramFrame<panel> extends JFrame implements ActionListener{
 	Container content;
 	boolean newEdge = false;
 	private String bank;
+	private Data data;
 
-	public ProgramFrame(Program p){
-		super("hallo");
+	public ProgramFrame(Data data){
+		super("Bank to program");
 		JFileChooser fc = new JFileChooser();
-		this.p = p;
-		 log = new JTextArea(5,20);
-	        log.setMargin(new Insets(5,5,5,5));
-	        log.setEditable(false);
-	        JScrollPane logScrollPane = new JScrollPane(log);
+		this.data = data;
+		log = new JTextArea(5,20);
+	    log.setMargin(new Insets(5,5,5,5));
+	    log.setEditable(false);
+	    JScrollPane logScrollPane = new JScrollPane(log);
 		//this.p).addObserver(this);
 		buttonPanel = new JPanel();
 		 load.addActionListener(this);
@@ -78,6 +76,8 @@ public class ProgramFrame<panel> extends JFrame implements ActionListener{
 		ingButton.setSelected(true);
 		ingButton.addActionListener(this);
 		raboButton.addActionListener(this);
+		ingButton.setActionCommand("ING");
+		raboButton.setActionCommand("RABO");
 		
 		ButtonGroup selectBankGroup = new ButtonGroup();
 		selectBankGroup.add(raboButton);
@@ -108,6 +108,9 @@ public class ProgramFrame<panel> extends JFrame implements ActionListener{
 		content.add(logScrollPane, BorderLayout.SOUTH);
 		this.setSize(800,200);
 		this.setVisible(true);
+		
+		this.data.setBank(selectBankGroup.getSelection().getActionCommand());
+		
 		this.init();
 
 	}

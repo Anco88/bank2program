@@ -1,3 +1,4 @@
+import data.Data;
 import program.Program;
 import Gui.ProgramFrame;
 
@@ -24,7 +25,7 @@ public class main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Qif file = new Qif();
-		ProgramFrame f = new ProgramFrame(new Program());
+		ProgramFrame f = new ProgramFrame(new Data());
 		file.loadSVN("input.txt");
 		// file.save("output.qif");
 		file.saveCSV("output.csv");
