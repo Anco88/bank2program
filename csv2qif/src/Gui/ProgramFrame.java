@@ -46,7 +46,6 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	 */
 	private static final long serialVersionUID = -7454457885878376658L;
 	static private final String newline = "\n";
-	private ProgramFrame panel;
 	JFileChooser fc = new JFileChooser();
 	JTextArea log;
 	JPanel buttonPanel;
@@ -58,8 +57,6 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	JRadioButton csvButton = new JRadioButton("CSV output");
 	JRadioButton csvHomeBankButton = new JRadioButton("CSV Homebank output");
 	JRadioButton qifButton = new JRadioButton("Qif output");
-	
-	Program p;
 
 	JButton load = new JButton("load");
 	JButton save = new JButton("save");
@@ -71,7 +68,6 @@ public class ProgramFrame extends JFrame implements ActionListener{
 
 	public ProgramFrame(Data data){
 		super("Bank to program");
-		JFileChooser fc = new JFileChooser();
 		this.data = data;
 		log = new JTextArea(5,20);
 	    log.setMargin(new Insets(5,5,5,5));
@@ -129,8 +125,6 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		this.setVisible(true);
 		
 		//this.data.setBank(selectBankGroup.getSelection().getActionCommand());
-	//	System.out.println("hooi " + selectBankGroup.getSelection().getActionCommand());
-	//	System.out.println("hooi " + getSelectedButton(selectBankGroup).getActionCommand());
 		
 		this.init();
 
@@ -232,7 +226,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	    }
     }
 
-/* orinal function works, keep this for backup
+/* original function works, keep this for backup
     public  JRadioButton getSelectedButton(ButtonGroup group) {
         Enumeration<AbstractButton> e = group.getElements();
         while (e.hasMoreElements()) {
