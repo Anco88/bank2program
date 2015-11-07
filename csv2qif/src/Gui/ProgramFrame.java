@@ -53,6 +53,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	ButtonGroup selectBankGroup = new ButtonGroup();
 	JRadioButton raboButton = new JRadioButton("Rabobank");
 	JRadioButton ingButton = new JRadioButton("ING");
+	JRadioButton autoButton = new JRadioButton("Auto detect");
 	ButtonGroup selectOutput;
 	JRadioButton csvButton = new JRadioButton("CSV output");
 	JRadioButton qifButton = new JRadioButton("Qif output");
@@ -82,15 +83,17 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		save.addActionListener(this);
 		content = getContentPane();
 		
-		ingButton.setSelected(true);
+		autoButton.setSelected(true);
 		ingButton.addActionListener(this);
 		raboButton.addActionListener(this);
+		autoButton.addActionListener(this);
 		ingButton.setActionCommand("ING");
 		raboButton.setActionCommand("RABO");
-		
+		autoButton.setActionCommand("AUTO");
 		
 		selectBankGroup.add(raboButton);
 		selectBankGroup.add(ingButton);
+		selectBankGroup.add(autoButton);
 		
 		selectOutput = new ButtonGroup();
 		selectOutput.add(csvButton);
@@ -105,6 +108,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		JPanel selectBankPanel = new JPanel(new GridLayout(0, 1));
 		selectBankPanel.add(raboButton);
 		selectBankPanel.add(ingButton);
+		selectBankPanel.add(autoButton);
 		
 		JPanel selectOutputPanel = new JPanel(new GridLayout(0, 1));
 		selectOutputPanel.add(csvButton);
@@ -120,7 +124,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		this.setSize(800,200);
 		this.setVisible(true);
 		
-		this.data.setBank(selectBankGroup.getSelection().getActionCommand());
+		//this.data.setBank(selectBankGroup.getSelection().getActionCommand());
 	//	System.out.println("hooi " + selectBankGroup.getSelection().getActionCommand());
 	//	System.out.println("hooi " + getSelectedButton(selectBankGroup).getActionCommand());
 		
@@ -176,7 +180,12 @@ public class ProgramFrame extends JFrame implements ActionListener{
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would open the file.
-                switch(getSelectedBank()){
+                String bank = getSelectedBank();
+                if(bank == "AUTO"){
+                	bank = decode.DetectBank.getBank(fc.getSelectedFile().getAbsolutePath());
+                	System.out.println(bank);
+                }
+                switch(bank){
 	                case "RABO":new RaboToTransactions(data, fc.getSelectedFile());
 	                case "ING":new IngToTransactions(data, fc.getSelectedFile());
                 }
