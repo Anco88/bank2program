@@ -20,7 +20,7 @@ import data.Transaction;
  * @author anco
  *
  */
-public class ToQif {
+public class ToQif extends Export{
 
 	private Data data;
 
@@ -32,21 +32,7 @@ public class ToQif {
 	}
 	
 	public ToQif(Data data, File file) {
-		this.data = data;
-		int overwrite = 0;
-		Path path = Paths.get(file.getAbsolutePath());
-		if( !Files.notExists(path)){
-			Object[] options = {"Ok",
-                    "Cancel"};
-			overwrite = JOptionPane.showOptionDialog(null,
-				    "Do you want to overwrite the file?",
-				    "About to overwrite existing file", JOptionPane.OK_CANCEL_OPTION,
-				    JOptionPane.WARNING_MESSAGE, null, options, options[1]);
-			System.out.println("kueze: "+overwrite );
-		}
-		if(overwrite == 0){
-			save(file.getAbsolutePath());
-		}
+		super(data, file);
 	}
 	
 	public void save(String filename) {

@@ -12,6 +12,7 @@ import data.Transaction;
 public abstract class CSVToTransactions {
 	private Data data;
 	private File file;
+	protected Rules rules;
 	
 	/**
 	 * @return the data
@@ -33,6 +34,7 @@ public abstract class CSVToTransactions {
 	CSVToTransactions(Data data, File file){
 		setData(data);
 		setFile(file);
+		rules = new Rules();
 		loadCSV(file.getAbsolutePath());
 	}
 

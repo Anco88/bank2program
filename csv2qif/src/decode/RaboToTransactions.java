@@ -51,7 +51,7 @@ public class RaboToTransactions extends CSVToTransactions{
 		}
 		comment = comment.trim();
 		t.setComment(comment);
-		t.setCategory(getCategory());
+		t.setCategory(rules.findCategory(t));
 		return t;
 	}
 

@@ -56,6 +56,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 	JRadioButton autoButton = new JRadioButton("Auto detect");
 	ButtonGroup selectOutput;
 	JRadioButton csvButton = new JRadioButton("CSV output");
+	JRadioButton csvHomeBankButton = new JRadioButton("CSV Homebank output");
 	JRadioButton qifButton = new JRadioButton("Qif output");
 	
 	Program p;
@@ -98,12 +99,14 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		selectOutput = new ButtonGroup();
 		selectOutput.add(csvButton);
 		selectOutput.add(qifButton);
+		selectOutput.add(csvHomeBankButton);
 		csvButton.setActionCommand("CSV");
 		qifButton.setActionCommand("QIF");
 		
 		qifButton.setSelected(true);
 		csvButton.addActionListener(this);
 		qifButton.addActionListener(this);
+		csvHomeBankButton.addActionListener(this);
 		
 		JPanel selectBankPanel = new JPanel(new GridLayout(0, 1));
 		selectBankPanel.add(raboButton);
@@ -113,6 +116,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		JPanel selectOutputPanel = new JPanel(new GridLayout(0, 1));
 		selectOutputPanel.add(csvButton);
 		selectOutputPanel.add(qifButton);
+		selectOutputPanel.add(csvHomeBankButton);
 		
 		buttonPanel.add(load);
 		buttonPanel.add(save);

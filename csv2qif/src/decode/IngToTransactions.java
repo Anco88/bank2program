@@ -49,7 +49,7 @@ public class IngToTransactions extends CSVToTransactions {
 		t.setDescription(strings[8]);
 		
 		t.setComment("");
-		t.setCategory(getCategory());
+		t.setCategory(rules.findCategory(t));
 		return t;
 	}
 
