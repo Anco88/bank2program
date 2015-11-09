@@ -7,7 +7,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import data.Data;
 import data.Transaction;
 
@@ -37,12 +36,14 @@ public class ToCSVHomebank extends Export {
 	 */
 	@Override
 	void save(String filename) {
+	
+		
 		BufferedWriter w = null;
 		try {
 			w = new BufferedWriter(new FileWriter(filename));
 			//w.write("!Type:Bank\n");
-			w.write("\" date \",\" amount \",\" name \",\" memo \",\" code \",\" category\",\" subcat \"");
-			
+		//	w.write("date;paymode;info;payee;wording;amount;category;tags");
+			//w.newLine();
 			for (Transaction t : super.data.getTransactions()) {
 				w.write(toCSV(t));
 				w.newLine();
@@ -71,37 +72,54 @@ public class ToCSVHomebank extends Export {
 	}
 	
 	private String toCSV(Transaction t) {
+		/*
+		 *  date 	format must be DD-MM-YY
+			paymode 	from 0=none to 10=FI fee
+			info 	a string
+			payee 	a payee name
+			memo 	a string
+			amount 	a number with a '.' or ',' as decimal separator, ex: -24.12 or 36,75
+			category 	a full category name (category, or category:subcategory)
+			tags 	tags separated by space
+			tag is mandatory since v4.5
+			
+			//pay mode
+			 * 0 = None
+1 = Credit Card
+2 = Check
+3 = Cash
+4 = Transfer
+5 = Internal Transfer
+6 = Debit Card
+7 = Standing Order
+8 = Electronic Payment
+9 = Deposit
+10 = FI Fee
+		 * 
+		 */
 		// TODO change order
-		String str = "\"";
+		String str = "";
 		String n = "";
 		String memo = "";
-		String cat = "";
-		String subcat = "";
-		if (!t.getAccount().isEmpty()) {
-			n = t.getAccount() + " ";
-		}
-		if (!t.getName().isEmpty()) {
-			n += t.getName();
-			memo += t.getDescription() + " ";
-		} else {
-			n += t.getDescription();
-		}
-		if (t.getCategory() != null && !t.getCategory().isEmpty()) {
-			String catTemp[] = t.getCategory().split(":");
-			cat = catTemp[0];
-			if (catTemp.length > 1) {
-				subcat = catTemp[1];
-			}
-		}
+	
+		
 
 		memo += t.getComment();
 		System.out.println(n);
-		str += concat("\",\"", t.getDate(), t.getDC() + t.getAmount(), n, memo, t.getCode(),
-				cat.toLowerCase(), subcat.toLowerCase());
-		str += "\"";
+		str += concat(";", toHomeBankDate(t.getDate()), "0", t.getComment() , 
+				t.getName_description(), "",t.getDC()+t.getAmount(), t.getCategory(), t.getCode());
+		str += "";
 
 		return str;
 
+	}
+
+	private String toHomeBankDate(String date) {
+		String year = date.substring(2, 4);
+		String month = date.substring(4, 6);
+		String day = date.substring(6, 8);
+		
+		return day + "-" + month + "-" + year; 
 	}
 
 

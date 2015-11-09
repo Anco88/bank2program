@@ -76,15 +76,7 @@ public class ToCSV extends Export {
 		String memo = "";
 		String cat = "";
 		String subcat = "";
-		if (!t.getAccount().isEmpty()) {
-			n = t.getAccount() + " ";
-		}
-		if (!t.getName().isEmpty()) {
-			n += t.getName();
-			memo += t.getDescription() + " ";
-		} else {
-			n += t.getDescription();
-		}
+	
 		if (t.getCategory() != null && !t.getCategory().isEmpty()) {
 			String catTemp[] = t.getCategory().split(":");
 			cat = catTemp[0];
@@ -95,7 +87,8 @@ public class ToCSV extends Export {
 
 		memo += t.getComment();
 		System.out.println(n);
-		str += concat("\",\"", t.getDate(), t.getDC() + t.getAmount(), n, memo, t.getCode(),
+		str += concat("\",\"", t.getDate(), t.getDC() + t.getAmount(), t.getName_description(), 
+				t.getComment(), t.getCode(),
 				cat.toLowerCase(), subcat.toLowerCase());
 		str += "\"";
 
