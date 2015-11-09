@@ -63,7 +63,7 @@ public class Rules {
 	
 	
 	public String findCategory(Transaction t){
-		String str = t.getName()+t.getAccount()+t.getDescription()+t.getDC()+t.getAccount()+t.getComment()+t.getCode();
+		String str = t.getName_description()+t.getAccount()+t.getDC()+t.getAccount()+t.getComment()+t.getCode();
 		for(Rule r : rules){
 			if (str.toLowerCase().contains(r.getTest().toLowerCase())){
 				return r.getCategory();

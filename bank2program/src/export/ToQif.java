@@ -22,8 +22,7 @@ import data.Transaction;
  */
 public class ToQif extends Export{
 
-	private Data data;
-
+	
 	/**
 	 * 
 	 */
@@ -65,15 +64,11 @@ public class ToQif extends Export{
 		str += "D" + t.getDate() + "\n";
 		str += "T" + t.getDC() + t.getAmount() + "\n";
 		str += "P";
-		if (!t.getAccount().isEmpty()) {
-			str += t.getAccount() + " ";
+		str += t.getAccount();
+		if(!t.getAccount().isEmpty()){
+			str += " ";
 		}
-		if (!t.getName().isEmpty()) {
-			str += t.getName();
-			memo += t.getDescription() + " ";
-		} else {
-			str += t.getDescription();
-		}
+		str += t.getName_description();
 		str += "\n";
 		memo += t.getComment();
 		memo = memo.trim();

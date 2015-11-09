@@ -7,11 +7,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Enumeration;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -20,15 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import data.Data;
 import decode.IngToTransactions;
 import decode.RaboToTransactions;
 import export.ToCSV;
+import export.ToCSVHomebank;
 import export.ToQif;
 
-import program.Program;
 
 /**
  * 
@@ -98,6 +91,7 @@ public class ProgramFrame extends JFrame implements ActionListener{
 		selectOutput.add(csvHomeBankButton);
 		csvButton.setActionCommand("CSV");
 		qifButton.setActionCommand("QIF");
+		csvHomeBankButton.setActionCommand("CSVHOMEBANK");
 		
 		qifButton.setSelected(true);
 		csvButton.addActionListener(this);
@@ -199,10 +193,14 @@ public class ProgramFrame extends JFrame implements ActionListener{
             int returnVal = fc.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                
-               switch(getSelectedOutput()){
-               case "QIF":  new ToQif(data, fc.getSelectedFile());
-               case "CSV": new ToCSV(data, fc.getSelectedFile());
+                String output = getSelectedOutput();
+                System.out.println("selected = "+ output);
+               switch(output){
+               case "QIF":  new ToQif(data, fc.getSelectedFile()); System.out.println("QIF output");
+               break;
+               case "CSV": new ToCSV(data, fc.getSelectedFile());System.out.println("CSV output");
+               break;
+               case "CSVHOMEBANK": new ToCSVHomebank(data, fc.getSelectedFile());System.out.println("Homebank output");
                }
                
                
